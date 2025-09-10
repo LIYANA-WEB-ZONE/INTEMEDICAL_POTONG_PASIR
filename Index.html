@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Intemedical Potong Pasir</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen font-sans p-4">
+
+<div class="bg-white shadow-2xl rounded-3xl p-6 sm:p-8 w-full max-w-md mx-auto mt-0">
+  
+  <!-- Clinic Header -->
+  <div class="text-center mb-6">
+    <h1 class="text-xl sm:text-2xl font-bold text-gray-800">INTEMEDICAL POTONG PASIR</h1>
+    <p class="text-xs sm:text-sm text-gray-600">51 Upper Serangoon Road, #01-29 The Paiz Centre,<br/> Singapore 347697</p>
+    <p class="text-xs sm:text-sm text-gray-600">Tel: (65) 62426284 | Fax: (65) 62414125</p>
+  </div>
+  
+  <!-- Search Section -->
+  <div class="flex mb-6 flex-col sm:flex-row gap-2">
+    <input type="text" id="reportNumber" placeholder="Enter Report Number" 
+           class="flex-1 border border-gray-300 rounded-2xl p-3 focus:outline-none focus:ring-2 focus:ring-blue-400">
+    <button onclick="searchReport()" 
+            class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-3 sm:py-0 rounded-2xl transition">Search</button>
+  </div>
+
+  <!-- Result Section -->
+  <div id="result" class="bg-gray-50 p-4 sm:p-6 rounded-2xl shadow-inner text-gray-700 space-y-4"></div>
+</div>
+
+<script>
+  // Reports Data
+  const reports = {
+    "10288": {
+      name: "Sulakshana Pramod",
+      nric: "N10169610",
+      startDate: "15/08/2025",
+      endDate: "17/08/2025",
+      symptomsStart: "14/08/2025",
+      test: "Medical Leave Certificate",
+      doctor: "Dr. Lim",
+      remarks: "Approved for 3 days of medical leave due to minor illness"
+    },
+    "10289": {
+      name: "Kamal Perera",
+      nric: "N10234567",
+      startDate: "18/08/2025",
+      endDate: "18/08/2025",
+      symptomsStart: "17/08/2025",
+      test: "General Health Check",
+      doctor: "Dr. Tan",
+      remarks: "All parameters normal, fit for work"
+    }
+  };
+
+  function searchReport() {
+    const rptNo = document.getElementById("reportNumber").value.trim();
+    const resultDiv = document.getElementById("result");
+    
+    if (reports[rptNo]) {
+      const rpt = reports[rptNo];
+      resultDiv.innerHTML = `
+        <!-- Report Header -->
+        <div class="border-b pb-2 mb-2 text-center">
+          <h2 class="text-lg sm:text-xl font-semibold text-gray-800">${rpt.test}</h2>
+          <p class="text-sm text-gray-500">MC Number: ${rptNo}</p>
+        </div>
+
+        <!-- Personal Info -->
+        <div class="space-y-1">
+          <p><span class="font-semibold">Name:</span> ${rpt.name}</p>
+          <p><span class="font-semibold">NRIC/Passport:</span> ${rpt.nric}</p>
+        </div>
+
+        <!-- Dates -->
+        <div class="mt-2 space-y-1">
+          <p><span class="font-semibold">Start Date:</span> ${rpt.startDate}</p>
+          <p><span class="font-semibold">End Date:</span> ${rpt.endDate}</p>
+          <p><span class="font-semibold">Symptoms Started:</span> ${rpt.symptomsStart}</p>
+        </div>
+
+        <!-- Doctor & Remarks -->
+        <div class="mt-2 space-y-1 border-t pt-2">
+          <p><span class="font-semibold">Doctor:</span> ${rpt.doctor}</p>
+          <p><span class="font-semibold">Remarks:</span> ${rpt.remarks}</p>
+        </div>
+      `;
+    } else {
+      resultDiv.innerHTML = `<p class="text-red-500 font-semibold text-center">Report not found!</p>`;
+    }
+  }
+</script>
+
+</body>
+</html>
